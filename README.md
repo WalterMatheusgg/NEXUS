@@ -3,128 +3,106 @@
 # NEXUS CRM
 ### Plataforma Full Stack de Gestão Empresarial
 
-**CRM corporativo multiempresa com Java 21, Spring Boot 4, Angular 22 e Oracle Database.**
+**Gestão de clientes, vendas e operações em um único sistema, com Java 21, Spring Boot 4, Angular 22 e Oracle Database.**
 
-Uma aplicação de gestão empresarial com autenticação, controle de acesso, relacionamento com clientes, operações comerciais, atendimento, tarefas, processos e relatórios — desenvolvida com foco em arquitetura modular, segurança e persistência real.
+![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+![Angular](https://img.shields.io/badge/Angular-22-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![Oracle](https://img.shields.io/badge/Oracle-Database-F80000?style=for-the-badge&logo=oracle&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
-[![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/)
-[![Spring Boot](https://img.shields.io/badge/Spring_Boot-4-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
-[![Angular](https://img.shields.io/badge/Angular-22-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev/)
-[![Oracle](https://img.shields.io/badge/Oracle-Database-F80000?style=for-the-badge&logo=oracle&logoColor=white)](https://www.oracle.com/database/free/)
-[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docs.docker.com/compose/)
-
-[**Prévia visual**](#-prévia-da-aplicação) · [**Funcionalidades**](#-funcionalidades) · [**Arquitetura**](docs/arquitetura.md) · [**Executar**](#-executar-localmente) · [**Testes**](#-testes-e-build)
+[**Dashboard**](#-painel-do-nexus) · [**Funcionalidades**](#-funcionalidades) · [**Arquitetura**](#-arquitetura) · [**Executar**](#-execução-local) · [**Documentação**](#-documentação)
 
 </div>
 
 ---
 
-## 🖥️ Prévia da aplicação
+## 🖥️ Painel do NEXUS
 
 <div align="center">
-  <img width="100%" src="docs/assets/dashboard-preview.svg" alt="Prévia do painel Nexus CRM com navegação lateral, indicadores de clientes, oportunidades, chamados e tarefas" />
-  <br />
-  <sub>Imagem ilustrativa fiel à estrutura do dashboard Angular presente no código. Não é uma captura de execução; os indicadores usam valores demonstrativos.</sub>
+
+<img src="docs/assets/dashboard-preview.svg" width="100%" alt="NEXUS CRM: dashboard com clientes, funil comercial, chamados e tarefas"/>
+
 </div>
 
-O painel implementado reúne **clientes, funil de vendas, chamados, tarefas e atividades recentes** em uma interface responsiva. Os valores reais da aplicação são consultados na API Spring Boot e no Oracle, não definidos na interface.
+A experiência do NEXUS foi organizada para conectar **gestão comercial e operação**: menu lateral por módulos, pesquisa de clientes, notificações, indicadores de negócio e ferramentas para o trabalho diário. O dashboard consulta informações da API Java e da base Oracle.
 
-**Explore o código:** [Frontend Angular](frontend/src/app/) · [API Java](backend/src/main/java/com/nexuscrm/) · [Dashboard](frontend/src/app/features/dashboard/dashboard.component.html)
+## 🎯 Sobre o projeto
 
----
+O **NEXUS CRM** é uma plataforma Full Stack voltada à gestão empresarial de pequenas e médias organizações. O projeto foi estruturado como um **monólito modular**, com domínios bem definidos, regras de negócio centralizadas no backend, frontend Angular por funcionalidades e persistência em banco de dados real.
 
-## 🎯 Visão geral
-
-O **NEXUS CRM** demonstra o desenvolvimento de uma solução Full Stack orientada a problemas reais de empresas: centralizar clientes, vendas, chamados, tarefas e processos em uma única plataforma.
-
-O projeto adota um **monólito modular** com responsabilidades separadas por domínio, API REST protegida, interface Angular por funcionalidades e banco **Oracle Free** integrado por migrações Flyway. Dados comerciais e indicadores são consultados pela aplicação e pelo banco; não dependem de dados fictícios fixos na interface.
-
-> [!NOTE]
-> **Projeto de portfólio, validado em ambiente local.** Em 17/10/2026, o registro de validação documenta **44 testes de backend com Oracle**, **12 testes de frontend**, **7 verificações de infraestrutura** e smoke test no navegador (login, dashboard, clientes e chamados). Não houve homologação de produção. [Consulte evidências e pendências](docs/validacao-entrega.md).
+O sistema reúne autenticação, cadastro de clientes, relacionamento comercial, chamados, tarefas, processos, relatórios e administração. A separação de dados por organização é aplicada no servidor.
 
 ## ✨ Funcionalidades
 
-| Domínio | Recursos |
+| Módulo | Recursos |
 |:--|:--|
-| 🔐 **Autenticação e acesso** | Configuração inicial, login, recuperação e troca de senha, sessões, perfis e permissões |
-| 🏢 **Organizações** | Contexto de empresa e isolamento de dados aplicado no backend |
-| 👥 **Clientes** | Pessoas físicas e jurídicas, contatos, validação de CPF/CNPJ, consultas e interações |
-| 📈 **Comercial** | Leads, conversão, oportunidades e acompanhamento do funil |
-| 🎧 **Atendimento** | Chamados, prioridades, responsáveis, histórico, comentários, prazos e anexos privados |
-| ✅ **Tarefas e processos** | Acompanhamento de responsáveis, estados e fluxos de trabalho |
-| 📊 **Dashboard e relatórios** | Indicadores alimentados pela API e persistência Oracle; exportação CSV |
-| ⚙️ **Administração** | Usuários, perfis, permissões e configurações operacionais |
+| 🔐 **Autenticação** | Configuração inicial, login, sessão, recuperação de senha, perfis e permissões |
+| 🏢 **Organizações** | Contexto empresarial e isolamento de dados entre organizações |
+| 👥 **Clientes** | PF e PJ, documentos, contatos, pesquisa, histórico e validação |
+| 📈 **CRM comercial** | Leads, oportunidades, conversão e acompanhamento do funil |
+| 🎧 **Chamados** | Atendimento, responsáveis, prioridades, histórico, prazos e anexos |
+| ✅ **Tarefas e processos** | Planejamento de atividades, fluxos e acompanhamento de responsáveis |
+| 📊 **Dashboard e relatórios** | Indicadores e relatórios com dados consultados na API/Oracle, exportação CSV |
+| ⚙️ **Administração** | Usuários, equipes, funções, permissões, configurações e auditoria |
 
-**Evoluções previstas:** exportação PDF e tema escuro, entre outras melhorias documentadas no [escopo](docs/escopo-e-validacao.md).
+## 🧰 Tecnologias
 
-## 🧰 Stack tecnológica
-
-| Camada | Tecnologias |
+| Camada | Ferramentas |
 |:--|:--|
-| **Backend** | Java 21 · Spring Boot 4.1.1 · Spring MVC · Spring Data JPA / Hibernate · Spring Security · Bean Validation |
-| **Frontend** | Angular 22 · TypeScript 6 · Angular Material · SCSS · componentes standalone · formulários reativos |
-| **Banco** | Oracle Database Free · JDBC · Flyway · constraints e migrações versionadas |
-| **Segurança** | Cookies HttpOnly · SameSite · CSRF · BCrypt · autorização por perfil/permissão |
-| **Qualidade** | JUnit · Mockito · Vitest · scripts de verificação e build |
-| **Infraestrutura** | Docker · Docker Compose · Nginx · Mailpit (e-mails locais) |
-| **Documentação** | OpenAPI / Swagger · documentação de arquitetura · runbooks |
+| **Backend** | Java 21 · Spring Boot 4.1.1 · Spring MVC · Spring Data JPA/Hibernate · Spring Security |
+| **Frontend** | Angular 22 · TypeScript · Angular Material · SCSS · Formulários reativos |
+| **Banco** | Oracle Database Free · Flyway · SQL · Migrações versionadas |
+| **Segurança** | Cookies HttpOnly · CSRF · BCrypt · Perfis e permissões no backend |
+| **Qualidade** | JUnit · Mockito · Vitest · Scripts de testes e build |
+| **Infraestrutura** | Docker · Docker Compose · Nginx · Mailpit para e-mails locais |
+| **Documentação** | OpenAPI / Swagger · Runbooks · Arquitetura |
 
 ## 🏗️ Arquitetura
 
 ```mermaid
 flowchart TD
-    A["Angular 22 • Material"] -->|"HTTP / API"| B["Spring Boot 4 • Spring Security"]
-    B --> C["Módulos de domínio"]
-    C --> D["Spring Data JPA / Hibernate"]
-    D --> E[("Oracle Database Free")]
-    B --> F["SMTP / Mailpit em desenvolvimento"]
+    USER["Frontend Angular 22 · Material"] --> API["API REST · Spring Boot 4"]
+    API --> SEC["Spring Security · Sessões / Permissões"]
+    SEC --> DOM["Módulos de domínio"]
+    DOM --> CUSTOMER["Clientes / Comercial"]
+    DOM --> OPS["Chamados / Tarefas / Processos"]
+    DOM --> ADMIN["Dashboard / Administração / Relatórios"]
+    CUSTOMER --> JPA["Spring Data JPA / Hibernate"]
+    OPS --> JPA
+    ADMIN --> JPA
+    JPA --> ORACLE[("Oracle Database Free")]
+    FLYWAY["Flyway · V1 / V2 / V3"] --> ORACLE
 ```
 
-**Decisões de engenharia em destaque:**
-
-- **Monólito modular:** separação de responsabilidades sem a complexidade operacional inicial de microsserviços.
-- **API e persistência reais:** DTOs, validações, regras de negócio, JPA e migrações de banco.
-- **Autorização no servidor:** menus e filtros da interface não substituem verificações de acesso no backend.
-- **Segurança de sessão:** cookie HttpOnly, token CSRF para operações mutáveis e recuperação de senha com tokens temporários.
-- **Infraestrutura reproduzível:** scripts para inicialização, diagnóstico, testes, build e execução em containers.
-- **Cuidados operacionais:** volume Oracle persistente, arquivos de configuração privados e procedimentos documentados de backup/restauração.
-
-Leia os detalhes em [Arquitetura e isolamento entre empresas](docs/arquitetura.md) e [API e segurança HTTP](docs/api.md).
-
-## 📁 Estrutura do repositório
+**Organização do código:**
 
 ```text
 NEXUS/
-├── backend/           # API Java, módulos, segurança e migrações Flyway
-├── frontend/          # Aplicação Angular, core, shared e funcionalidades
-├── infra/             # Oracle, Nginx, containers e arquivos Compose
-├── scripts/           # Inicialização, ambiente, testes, build e operações
-├── docs/              # Arquitetura, API, validação e runbooks
-├── e2e/               # Artefatos de teste ponta a ponta
-├── .vscode/           # Configurações e tarefas de desenvolvimento
-├── .env.example       # Modelo de configuração, sem credenciais reais
-└── .nvmrc             # Versão Node utilizada no projeto
+├── backend/       # API, regras de negócio, segurança e persistência
+├── frontend/      # Aplicação Angular e módulos de interface
+├── infra/         # Docker, Oracle, Nginx e Compose
+├── scripts/       # Ambiente, diagnóstico, testes e build
+├── docs/          # API, arquitetura, validação e operação
+├── e2e/           # Testes de integração da aplicação
+├── .env.example   # Modelo de configuração
+└── .nvmrc         # Versão Node do projeto
 ```
 
-## 🚀 Executar localmente
+A implementação segue separação entre controllers, serviços, repositórios, DTOs e validações, com autenticação e autorização no backend. Consulte a [arquitetura detalhada](docs/arquitetura.md) e a [documentação da API](docs/api.md).
 
-### Pré-requisitos
+## 🚀 Execução local
 
-- Linux com **JDK 21**, Git, Bash, Python 3 e curl.
-- **Docker Engine** e **Docker Compose plugin**.
-- **NVM** para utilizar a versão Node especificada em `.nvmrc`.
-- VS Code é opcional, mas recomendado.
+**Pré-requisitos:** JDK 21, Docker Engine, Docker Compose, Git, Bash e NVM. O ambiente original utiliza Linux Mint; veja o [runbook](docs/runbook.md) para configurações adicionais.
 
-> Ambiente original: Linux Mint 21.1. Para outras distribuições, ajuste a instalação das ferramentas conforme a documentação oficial. Não reutilize credenciais nem volumes de outra instalação.
-
-### 1. Clone o projeto
+### 1. Clonar o repositório
 
 ```bash
 git clone https://github.com/WalterMatheusgg/NEXUS.git
 cd NEXUS
 ```
 
-### 2. Prepare Node e segredos locais
+### 2. Configurar o ambiente
 
 ```bash
 . "$HOME/.nvm/nvm.sh"
@@ -136,16 +114,16 @@ chmod 600 .env
 ./scripts/doctor.sh
 ```
 
-`init-env.sh` cria a configuração local **somente se `.env` ainda não existir**, com segredos gerados e sem exibi-los. **Não versione `.env` ou senhas reais.** Se você já utiliza uma instância, preserve seu `.env` e seu volume Oracle existentes.
+O `init-env.sh` prepara a configuração local quando `.env` ainda não existe. Preserve os segredos e volumes de instalações existentes.
 
-### 3. Suba os serviços de desenvolvimento
+### 3. Iniciar Oracle e e-mails locais
 
 ```bash
 ./scripts/up.sh db
 ./scripts/up.sh mail
 ```
 
-Espere o Oracle ficar saudável. Em dois terminais separados:
+Em terminais diferentes:
 
 ```bash
 ./scripts/dev.sh backend
@@ -155,89 +133,66 @@ Espere o Oracle ficar saudável. Em dois terminais separados:
 ./scripts/dev.sh frontend
 ```
 
-| Serviço | Endereço local |
+| Serviço | Endereço |
 |:--|:--|
-| **Frontend Angular** | http://127.0.0.1:4200 |
-| **API Spring Boot** | http://127.0.0.1:18080 |
-| **Mailpit (SMTP local)** | http://127.0.0.1:8025 |
+| **Angular** | http://127.0.0.1:4200 |
+| **API REST** | http://127.0.0.1:18080 |
+| **Mailpit** | http://127.0.0.1:8025 |
 
-O Angular encaminha `/api/*` para a API em desenvolvimento. O Mailpit captura mensagens **apenas localmente**.
+### 4. Primeiro acesso e saúde da API
 
-### 4. Verifique a integração
+Acesse o Angular e siga o fluxo de configuração da primeira organização e seu administrador. O token de configuração é armazenado localmente em `NEXUS_SETUP_TOKEN`; não compartilhe credenciais ou tokens.
 
 ```bash
 ./scripts/health.sh
 ./scripts/health.sh http://127.0.0.1:4200/api
 ```
 
-O status `UP` confirma a probe de saúde, **não** substitui testes funcionais, de autorização ou de isolamento entre organizações.
-
-### 5. Primeiro acesso
-
-Quando a instalação ainda não foi provisionada, abra o frontend e utilize o fluxo de **configuração inicial** para criar a organização e seu administrador.
-
-O token necessário está em `NEXUS_SETUP_TOKEN`, dentro do `.env` local. **Não compartilhe esse token nem coloque credenciais em commits, screenshots ou logs.** Não existe conta de demonstração com senha fixa.
-
-Mais informações: [API e segurança](docs/api.md).
-
-## 🧪 Testes e build
-
-Com o Oracle e a configuração local disponíveis:
-
-```bash
-./scripts/test.sh
-./scripts/build.sh
-```
-
-O backend utiliza testes contra **Oracle real**, sem H2; o frontend utiliza Vitest. Os scripts também aceitam seleção por componente, descrita no runbook.
-
-> Execute testes com dados de desenvolvimento/teste: a suíte pode gravar registros. Para resultados efetivamente observados, limitações e pendências, consulte [Validação da entrega](docs/validacao-entrega.md).
-
-## 🐳 Execução em containers
-
-Para subir a pilha local usando a infraestrutura Compose:
+### Containers completos
 
 ```bash
 ./scripts/up.sh all
 ./scripts/health.sh http://127.0.0.1:8081/api
 ```
 
-**Aplicação em containers:** http://127.0.0.1:8081
+O frontend pode ser servido pelo Nginx em **http://127.0.0.1:8081**. Não utilize `docker compose down -v` se precisar preservar o volume do Oracle.
 
-A interface é servida pelo Nginx, que também encaminha chamadas à API. Segredos não devem ser incorporados às imagens.
+## 🧪 Testes e qualidade
 
-**Atenção:** não execute `docker compose down -v` se precisar preservar dados; o parâmetro `-v` remove volumes. Consulte o [runbook](docs/runbook.md) antes de alterar a infraestrutura existente.
+```bash
+./scripts/test.sh
+./scripts/build.sh
+```
 
-## 🔒 Segurança e privacidade
+O projeto utiliza testes Java/JUnit com Oracle, testes Angular/Vitest e verificações de infraestrutura.
 
-A aplicação inclui mecanismos de autenticação e autorização por sessão e organização. Uploads ficam fora do frontend público e downloads exigem autenticação e vínculo adequado. Recursos de segurança no código não eliminam a necessidade de revisão, testes de invasão, TLS, política de retenção, backups ensaiados e configuração segura para uso externo.
+**Registro de validação de 17/10/2026:** 44 testes de backend, 12 de frontend e 7 de infraestrutura aprovados; build Angular e smoke test de login, dashboard, clientes e chamados concluídos localmente. Os resultados são históricos e estão documentados em [Validação da entrega](docs/validacao-entrega.md).
 
-**Não há declaração de certificação bancária, de homologação de produção ou de conformidade legal automática.** Veja [privacidade e retenção](docs/privacidade.md) e [preparação de produção](docs/producao.md).
+## 🔒 Segurança
 
-## 📚 Documentação técnica
+A aplicação inclui controle de sessão, permissões, separação por organização e tratamento de erros. Os mecanismos devem ser complementados por testes de segurança, configuração TLS, auditoria operacional, backups ensaiados e gestão adequada de segredos antes de uma implantação externa.
 
-| Documento | Conteúdo |
+O repositório **não representa uma versão homologada para produção**. O planejamento técnico está detalhado em [Preparação de produção](docs/producao.md).
+
+## 📚 Documentação
+
+| Recurso | Descrição |
 |:--|:--|
-| [Arquitetura](docs/arquitetura.md) | Estrutura modular e isolamento por organização |
-| [API](docs/api.md) | Contratos HTTP, autenticação e recursos |
-| [Escopo e validação](docs/escopo-e-validacao.md) | Critérios de aceite e evolução funcional |
-| [Validação da entrega](docs/validacao-entrega.md) | Evidências, testes executados e pendências |
-| [Runbook](docs/runbook.md) | Operação local e solução de problemas |
-| [Produção](docs/producao.md) | Infraestrutura, segurança e publicação |
-| [Backup e restauração](docs/backup-restauracao.md) | Procedimentos de proteção de dados |
-| [Privacidade](docs/privacidade.md) | Proteção de dados e retenção |
-
-## 👨‍💻 Autor
-
-**Walter Matheus Soares da Silva**  
-Desenvolvedor Full Stack | Java · Spring Boot · Angular
-
-[![GitHub](https://img.shields.io/badge/GitHub-WalterMatheusgg-181717?style=flat-square&logo=github)](https://github.com/WalterMatheusgg)
+| [Arquitetura](docs/arquitetura.md) | Componentes, decisões e isolamento por organização |
+| [API](docs/api.md) | Endpoints e autenticação |
+| [Escopo](docs/escopo-e-validacao.md) | Funcionalidades e próximos passos |
+| [Validação](docs/validacao-entrega.md) | Evidências de testes e pendências |
+| [Runbook](docs/runbook.md) | Execução e diagnóstico |
+| [Produção](docs/producao.md) | Infraestrutura e implantação |
+| [Backup e restauração](docs/backup-restauracao.md) | Proteção do Oracle |
+| [Privacidade](docs/privacidade.md) | Proteção e retenção de dados |
 
 ---
 
 <div align="center">
 
-**NEXUS CRM** · Java + Spring Boot + Angular + Oracle · Código, integração, testes e arquitetura documentada.
+**NEXUS CRM** · Engenharia Full Stack · Java + Spring Boot + Angular + Oracle
+
+Desenvolvido por [**Walter Matheus**](https://github.com/WalterMatheusgg)
 
 </div>
