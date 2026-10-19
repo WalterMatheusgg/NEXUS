@@ -63,5 +63,4 @@ text{font-family:Inter,Arial,Helvetica,sans-serif}
 <text x="879" y="517" class="h" font-size="36">0</text><text x="921" y="516" class="muted" font-size="12">chamados registrados</text>
 <circle cx="882" cy="555" r="5" fill="#D9AB6D"/><text x="895" y="560" fill="#677C90" font-size="12">Em andamento</text><text x="1132" y="560" font-weight="700" fill="#57738A" font-size="12">0</text>
 <circle cx="882" cy="588" r="5" fill="#47B58C"/><text x="895" y="593" fill="#677C90" font-size="12">Resolvidos</text><text x="1132" y="593" font-weight="700" fill="#57738A" font-size="12">0</text>
-<rect x="14" y="677" width="1172" height="19" fill="#142C47"/><text x="600" y="690" text-anchor="middle" fill="#C8DDEE" font-size="10" letter-spacing="1">PRÉVIA ILUSTRATIVA BASEADA NA INTERFACE ANGULAR · NÃO É CAPTURA DE EXECUÇÃO</text>
 </svg>
