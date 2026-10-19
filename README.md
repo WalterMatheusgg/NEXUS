@@ -13,9 +13,23 @@ Uma aplicação de gestão empresarial com autenticação, controle de acesso, r
 [![Oracle](https://img.shields.io/badge/Oracle-Database-F80000?style=for-the-badge&logo=oracle&logoColor=white)](https://www.oracle.com/database/free/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docs.docker.com/compose/)
 
-[**Arquitetura**](docs/arquitetura.md) · [**Documentação da API**](docs/api.md) · [**Como executar**](#-executar-localmente) · [**Validação**](docs/validacao-entrega.md)
+[**Prévia visual**](#-prévia-da-aplicação) · [**Funcionalidades**](#-funcionalidades) · [**Arquitetura**](docs/arquitetura.md) · [**Executar**](#-executar-localmente) · [**Testes**](#-testes-e-build)
 
 </div>
+
+---
+
+## 🖥️ Prévia da aplicação
+
+<div align="center">
+  <img width="100%" src="docs/assets/dashboard-preview.svg" alt="Prévia do painel Nexus CRM com navegação lateral, indicadores de clientes, oportunidades, chamados e tarefas" />
+  <br />
+  <sub>Imagem ilustrativa fiel à estrutura do dashboard Angular presente no código. Não é uma captura de execução; os indicadores usam valores demonstrativos.</sub>
+</div>
+
+O painel implementado reúne **clientes, funil de vendas, chamados, tarefas e atividades recentes** em uma interface responsiva. Os valores reais da aplicação são consultados na API Spring Boot e no Oracle, não definidos na interface.
+
+**Explore o código:** [Frontend Angular](frontend/src/app/) · [API Java](backend/src/main/java/com/nexuscrm/) · [Dashboard](frontend/src/app/features/dashboard/dashboard.component.html)
 
 ---
 
@@ -25,7 +39,8 @@ O **NEXUS CRM** demonstra o desenvolvimento de uma solução Full Stack orientad
 
 O projeto adota um **monólito modular** com responsabilidades separadas por domínio, API REST protegida, interface Angular por funcionalidades e banco **Oracle Free** integrado por migrações Flyway. Dados comerciais e indicadores são consultados pela aplicação e pelo banco; não dependem de dados fictícios fixos na interface.
 
-> **Escopo e confiabilidade:** o repositório reúne código, infraestrutura, scripts e documentação. A existência de uma funcionalidade ou script não significa, por si só, homologação de produção. Consulte as [evidências de validação e pendências](docs/validacao-entrega.md).
+> [!NOTE]
+> **Projeto de portfólio, validado em ambiente local.** Em 17/10/2026, o registro de validação documenta **44 testes de backend com Oracle**, **12 testes de frontend**, **7 verificações de infraestrutura** e smoke test no navegador (login, dashboard, clientes e chamados). Não houve homologação de produção. [Consulte evidências e pendências](docs/validacao-entrega.md).
 
 ## ✨ Funcionalidades
 
@@ -223,6 +238,6 @@ Desenvolvedor Full Stack | Java · Spring Boot · Angular
 
 <div align="center">
 
-**NEXUS CRM** · Engenharia Full Stack com foco em arquitetura, segurança e software empresarial.
+**NEXUS CRM** · Java + Spring Boot + Angular + Oracle · Código, integração, testes e arquitetura documentada.
 
 </div>
