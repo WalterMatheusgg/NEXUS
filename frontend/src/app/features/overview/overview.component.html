@@ -1,0 +1,66 @@
+<div class="workspace">
+  <header class="topbar">
+    <a class="brand" routerLink="/" aria-label="Nexus CRM, página inicial">
+      <span class="brand-mark" aria-hidden="true">N</span>
+      <span class="brand-name">Nexus <strong>CRM</strong></span>
+    </a>
+    <div class="environment"><span class="environment-dot"></span>DESENVOLVIMENTO</div>
+  </header>
+
+  <main class="page-content">
+    <div class="page-heading">
+      <p class="eyebrow">AMBIENTE DO SISTEMA</p>
+      <h1>Visão geral</h1>
+      <p class="page-description">Estado de conectividade dos serviços essenciais.</p>
+    </div>
+
+    <section class="service-section" aria-labelledby="service-heading">
+      <div class="section-heading">
+        <h2 id="service-heading">Serviços</h2>
+        <span class="section-caption">VERIFICAÇÃO AO VIVO</span>
+      </div>
+
+      <mat-card appearance="outlined" class="service-card">
+        <mat-card-content>
+          <div class="service-indicator" [class.online]="state() === 'online'" [class.offline]="state() === 'offline'" [class.checking]="state() === 'checking'">
+            <span class="indicator-core" aria-hidden="true"></span>
+          </div>
+          <div class="service-copy" aria-live="polite">
+            <p class="service-label">API Nexus</p>
+            @switch (state()) {
+              @case ('checking') {
+                <h3>Verificando conexão</h3>
+              }
+              @case ('online') {
+                <h3>Conectada</h3>
+              }
+              @case ('offline') {
+                <h3>Sem conexão</h3>
+              }
+            }
+            @if (errorMessage()) {
+              <p class="error-message">{{ errorMessage() }}</p>
+            }
+          </div>
+          <button mat-button type="button" class="refresh-button" (click)="refresh()" [disabled]="state() === 'checking'">
+            Atualizar
+          </button>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="service-meta">
+        <code>GET /api/actuator/health</code>
+        @if (checkedAt(); as checked) {
+          <span>Verificado às {{ checked | date: 'HH:mm:ss' }}</span>
+        } @else {
+          <span>Aguardando primeira resposta</span>
+        }
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <span class="footer-rule"></span>
+      <p>Fundação Nexus CRM <span>·</span> Ambiente local</p>
+    </footer>
+  </main>
+</div>

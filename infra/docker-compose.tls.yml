@@ -1,0 +1,12 @@
+# Optional local HTTPS, combined after fullstack.yml; see docs/producao.md.
+services:
+  backend:
+    environment:
+      NEXUS_COOKIE_SECURE: 'true'
+      NEXUS_FRONTEND_URL: https://localhost:8443
+  frontend:
+    volumes:
+      - ./nginx.tls.server.conf:/etc/nginx/nexus-server.conf:ro
+      - ../var/tls:/etc/nginx/tls:ro
+    ports:
+      - 127.0.0.1:8443:8443

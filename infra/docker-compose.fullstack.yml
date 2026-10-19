@@ -1,0 +1,71 @@
+# Combine with docker-compose.yml. Keep project name infra to preserve infra_oracle-data.
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: infra/backend.Dockerfile
+    restart: unless-stopped
+    environment:
+      SERVER_ADDRESS: 0.0.0.0
+      SERVER_PORT: 8080
+      SERVER_FORWARD_HEADERS_STRATEGY: framework
+      ORACLE_JDBC_URL: jdbc:oracle:thin:@oracle:1521/FREEPDB1
+      ORACLE_APP_USER: ${ORACLE_APP_USER:?Configure ORACLE_APP_USER}
+      ORACLE_APP_PASSWORD: ${ORACLE_APP_PASSWORD:?Configure ORACLE_APP_PASSWORD}
+      NEXUS_SETUP_TOKEN: ${NEXUS_SETUP_TOKEN:-}
+      NEXUS_API_DOCS_ENABLED: ${NEXUS_API_DOCS_ENABLED:-true}
+      NEXUS_COOKIE_SECURE: ${NEXUS_COOKIE_SECURE:-false}
+      NEXUS_SESSION_TIMEOUT: ${NEXUS_SESSION_TIMEOUT:-30m}
+      NEXUS_RESET_MINUTES: ${NEXUS_RESET_MINUTES:-30}
+      NEXUS_FRONTEND_URL: ${NEXUS_DEPLOY_FRONTEND_URL:-http://127.0.0.1:8081}
+      NEXUS_STORAGE_DIR: /app/var/attachments
+      NEXUS_AUDIT_RETENTION_DAYS: ${NEXUS_AUDIT_RETENTION_DAYS:-365}
+      NEXUS_NOTIFICATION_RETENTION_DAYS: ${NEXUS_NOTIFICATION_RETENTION_DAYS:-90}
+      SMTP_HOST: ${NEXUS_DEPLOY_SMTP_HOST:-mailpit}
+      SMTP_PORT: ${SMTP_PORT:-1025}
+      SMTP_FROM: ${SMTP_FROM:-noreply@nexus.local}
+      SMTP_USERNAME: ${SMTP_USERNAME:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_AUTH: ${SMTP_AUTH:-false}
+      SMTP_STARTTLS: ${SMTP_STARTTLS:-false}
+    depends_on:
+      oracle:
+        condition: service_healthy
+    volumes:
+      - attachment-data:/app/var/attachments
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=128m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 1g
+    pids_limit: 200
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '5'
+  frontend:
+    build:
+      context: ..
+      dockerfile: infra/frontend.Dockerfile
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - 127.0.0.1:8081:8080
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 128m
+    pids_limit: 100
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '5'
+volumes:
+  attachment-data:

@@ -1,0 +1,85 @@
+# Exemplos manuais para a extensão REST Client do VS Code. Não são dados seed.
+# Use a API direta OU http://127.0.0.1:4200/api quando Angular estiver iniciado.
+# O REST Client deve manter seu cookie jar habilitado. Limpe-o após o uso.
+# Nunca preencha senhas/tokens neste arquivo compartilhado.
+@base = http://127.0.0.1:18080
+
+### Saúde
+GET {{base}}/actuator/health
+Accept: application/json
+
+### CSRF: execute antes de qualquer mutação; renove após login/setup/logout
+# @name csrf
+GET {{base}}/auth/csrf
+Accept: application/json
+
+### Primeira instalação
+GET {{base}}/auth/status
+
+### Criar a primeira organização e administrador (exemplos de campos)
+# @prompt setupToken Token local privado de .env
+# @prompt organizationCode Código da organização a criar
+# @prompt organizationName Nome real da organização
+# @prompt adminName Nome do administrador
+# @prompt adminEmail E-mail do administrador
+# @prompt adminPassword Senha forte, nunca registrada no arquivo
+POST {{base}}/auth/setup
+Content-Type: application/json
+X-XSRF-TOKEN: {{csrf.response.body.$.token}}
+
+{
+  "setupToken": "{{setupToken}}",
+  "organizationCode": "{{organizationCode}}",
+  "organizationName": "{{organizationName}}",
+  "name": "{{adminName}}",
+  "email": "{{adminEmail}}",
+  "password": "{{adminPassword}}"
+}
+
+### Entrar
+# @prompt organizationCode Código da organização existente
+# @prompt loginEmail E-mail cadastrado
+# @prompt loginPassword Senha atual
+POST {{base}}/auth/login
+Content-Type: application/json
+X-XSRF-TOKEN: {{csrf.response.body.$.token}}
+
+{"organizationCode":"{{organizationCode}}","email":"{{loginEmail}}","password":"{{loginPassword}}"}
+
+### Usuário atual
+GET {{base}}/auth/me
+
+### Clientes: os resultados são sempre da organização autenticada
+GET {{base}}/customers?page=0&size=20&search=&sort=createdAt&direction=desc
+
+### Dashboard real
+GET {{base}}/dashboard
+
+### Chamados
+GET {{base}}/tickets?page=0&size=20
+
+### Funil
+GET {{base}}/opportunities?page=0&size=100
+
+### Relatório
+GET {{base}}/reports/tickets
+
+### Exportação CSV
+GET {{base}}/reports/tickets/export
+Accept: text/csv
+
+### Perfis (requer ROLES_MANAGE)
+GET {{base}}/admin/roles
+
+### Recuperação de senha: mensagem genérica, inclusive para conta inexistente
+# @prompt organizationCode Código da organização
+# @prompt recoveryEmail E-mail cadastrado
+POST {{base}}/auth/forgot-password
+Content-Type: application/json
+X-XSRF-TOKEN: {{csrf.response.body.$.token}}
+
+{"organizationCode":"{{organizationCode}}","email":"{{recoveryEmail}}"}
+
+### Sair
+POST {{base}}/auth/logout
+X-XSRF-TOKEN: {{csrf.response.body.$.token}}

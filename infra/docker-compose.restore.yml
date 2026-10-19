@@ -1,0 +1,21 @@
+# Disposable restore target; deliberately separate from infra_oracle-data.
+services:
+  oracle:
+    image: gvenzl/oracle-free:23.26.3-slim-faststart
+    container_name: nexus-crm-oracle-restore
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_SYS_PASSWORD:?Configure ORACLE_SYS_PASSWORD}
+      APP_USER: ${ORACLE_APP_USER:?Configure ORACLE_APP_USER}
+      APP_USER_PASSWORD: ${ORACLE_APP_PASSWORD:?Configure ORACLE_APP_PASSWORD}
+    ports:
+      - 127.0.0.1:1522:1521
+    volumes:
+      - oracle-restore-data:/opt/oracle/oradata
+    healthcheck:
+      test: [CMD, healthcheck.sh, FREEPDB1, 'container status ignore']
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+volumes:
+  oracle-restore-data:

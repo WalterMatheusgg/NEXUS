@@ -1,0 +1,22 @@
+services:
+  oracle:
+    image: gvenzl/oracle-free:23.26.3-slim-faststart
+    container_name: nexus-crm-oracle
+    restart: unless-stopped
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_SYS_PASSWORD:?Defina ORACLE_SYS_PASSWORD no arquivo .env}
+      APP_USER: ${ORACLE_APP_USER:?Defina ORACLE_APP_USER no arquivo .env}
+      APP_USER_PASSWORD: ${ORACLE_APP_PASSWORD:?Defina ORACLE_APP_PASSWORD no arquivo .env}
+    ports:
+      - "127.0.0.1:1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "FREEPDB1", "container status ignore"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+
+volumes:
+  oracle-data:

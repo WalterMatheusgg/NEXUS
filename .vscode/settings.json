@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "java.compile.nullAnalysis.mode": "automatic"
+}

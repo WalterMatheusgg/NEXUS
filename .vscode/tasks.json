@@ -1,0 +1,50 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Nexus CRM: build backend",
+      "type": "shell",
+      "command": "./scripts/build.sh backend",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Nexus CRM: build frontend",
+      "type": "process",
+      "command": "${workspaceFolder}/scripts/build.sh",
+      "args": ["frontend"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Nexus CRM: testar tudo (Oracle real)",
+      "type": "process",
+      "command": "${workspaceFolder}/scripts/test.sh",
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Nexus CRM: backend local",
+      "type": "process",
+      "command": "${workspaceFolder}/scripts/dev.sh",
+      "args": ["backend"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Nexus CRM: frontend local",
+      "type": "process",
+      "command": "${workspaceFolder}/scripts/dev.sh",
+      "args": ["frontend"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    }
+  ]
+}

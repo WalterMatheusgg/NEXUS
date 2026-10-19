@@ -1,0 +1,47 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.local
+
+# Java and Maven
+**/target/
+*.class
+*.jar
+*.war
+hs_err_pid*
+
+# Node and Angular
+**/node_modules/
+**/dist/
+**/.angular/
+**/coverage/
+npm-debug.log*
+
+# IDE and operating system
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.DS_Store
+Thumbs.db
+
+# Local database files
+*.db
+*.sqlite*
+infra/oracle-data/
+
+# Runtime data, personal data, attachments, exports, dumps and private keys
+var/
+*.dmp
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.log
+*.log.*
+http-client.private.env.json
+.http-client/

@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "redhat.java",
+    "vmware.vscode-spring-boot",
+    "angular.ng-template",
+    "humao.rest-client"
+  ]
+}

@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content>
+    @if(error()) { <div class="alert error" role="alert">{{ error() }}</div> }
+    <div class="form-grid">
+      @for(field of fields; track field.key) {
+        <div class="form-field" [class.full]="field.type === 'textarea' || field.type === 'permissions'">
+          @if(field.type === 'checkbox') {
+            <label class="checkbox"><input type="checkbox" [formControlName]="field.key" />{{ field.label }}</label>
+          } @else if(field.type === 'permissions') {
+            <span class="field-label">{{ field.label }}</span><div class="permission-grid">
+              @for(choice of field.choices ?? []; track choice.value) { <label class="checkbox"><input type="checkbox" [checked]="checked(field.key,choice.value)" (change)="toggle(field.key,choice.value,$event)" />{{ choice.label }}</label> }
+            </div>
+          } @else {
+            <label [for]="'field-'+field.key">{{ field.label }} @if(field.required){<span class="required">*</span>}</label>
+            @switch(field.type) {
+              @case('lookup') { <app-lookup [endpoint]="field.lookup ?? ''" [label]="field.label" [formControlName]="field.key" /> }
+              @case('textarea') { <textarea [id]="'field-'+field.key" [formControlName]="field.key" rows="4" [attr.maxlength]="field.maxLength ?? 4000"></textarea> }
+              @case('select') { <select [id]="'field-'+field.key" [formControlName]="field.key">@if(!field.required){<option [ngValue]="null">Não informado</option>}@for(choice of field.choices ?? [];track choice.value){<option [ngValue]="choice.value">{{ choice.label }}</option>}</select> }
+              @default { <input [id]="'field-'+field.key" [type]="field.type ?? 'text'" [formControlName]="field.key" [attr.min]="field.min ?? null" [attr.max]="field.max ?? null" [attr.maxlength]="field.maxLength ?? 255" [attr.autocomplete]="field.type === 'password' ? 'new-password' : 'off'" [attr.step]="field.type === 'number' ? 'any' : null" /> }
+            }
+            @if(field.hint){<small class="field-hint">{{ field.hint }}</small>}
+            @if(invalid(field.key)){<small class="field-error">Confira este campo: valor obrigatório ou fora do formato permitido.</small>}
+          }
+        </div>
+      }
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end"><button mat-button type="button" [disabled]="busy()" (click)="ref.close(false)">Cancelar</button><button mat-flat-button type="submit" [disabled]="busy()">{{ busy() ? 'Salvando…' : 'Salvar' }}</button></mat-dialog-actions>
+</form>

@@ -1,0 +1,22 @@
+# Development only. The web UI contains password reset links and is loopback-only.
+services:
+  mailpit:
+    image: axllent/mailpit:v1.31.5
+    profiles: [dev]
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:1025:1025
+      - 127.0.0.1:8025:8025
+    environment:
+      MP_MAX_MESSAGES: 200
+      MP_MAX_AGE: 1d
+    healthcheck:
+      test: [CMD, /mailpit, readyz]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
